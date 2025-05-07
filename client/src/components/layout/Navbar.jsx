@@ -10,10 +10,12 @@ import {
   Menu,
   MenuItem,
   useMediaQuery,
-  useTheme
+  useTheme,
+  Avatar
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from '../../contexts/AuthContext';
+import logo from '../../images/muranga-county-logo.png';
 
 const Navbar = () => {
   const { isAuthenticated, admin, logout } = useAuth();
@@ -47,22 +49,25 @@ const Navbar = () => {
   ];
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="primary" elevation={2}>
       <Toolbar>
-        <Typography
-          variant="h6"
-          component={RouterLink}
-          to="/"
-          sx={{
-            flexGrow: 1,
-            textDecoration: 'none',
-            color: 'inherit',
-            display: 'flex',
-            alignItems: 'center'
-          }}
-        >
-          Murang'a Feedback
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+          <Avatar src={logo} alt="Murang'a County Logo" sx={{ width: 40, height: 40, mr: 2 }} />
+          <Typography
+            variant="h6"
+            component={RouterLink}
+            to="/"
+            sx={{
+              textDecoration: 'none',
+              color: 'inherit',
+              fontWeight: 700,
+              letterSpacing: 1,
+              fontSize: '1.4rem',
+            }}
+          >
+            Murang'a Feedback
+          </Typography>
+        </Box>
 
         {isMobile ? (
           <>
@@ -103,12 +108,13 @@ const Navbar = () => {
                 color="inherit"
                 component={RouterLink}
                 to={item.path}
+                sx={{ fontWeight: 600, fontSize: '1rem' }}
               >
                 {item.label}
               </Button>
             ))}
             {isAuthenticated ? (
-              <Button color="inherit" onClick={handleLogout}>
+              <Button color="inherit" onClick={handleLogout} sx={{ fontWeight: 600 }}>
                 Logout
               </Button>
             ) : (
@@ -116,6 +122,7 @@ const Navbar = () => {
                 color="inherit"
                 component={RouterLink}
                 to="/admin/login"
+                sx={{ fontWeight: 600 }}
               >
                 Admin Login
               </Button>

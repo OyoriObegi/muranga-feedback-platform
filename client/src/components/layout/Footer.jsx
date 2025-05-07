@@ -1,36 +1,25 @@
 import React from 'react';
-import { Box, Container, Typography, Link } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
+export default function Footer() {
   return (
     <Box
       component="footer"
       sx={{
-        py: 3,
-        px: 2,
-        mt: 'auto',
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[200]
-            : theme.palette.grey[800]
+        bgcolor:'#B0903D',
+        color: '#ffffff', // dark gold text
+        py: 2,
+        mt: 4,
+        textAlign: 'center',
+        boxShadow: 1,
       }}
     >
-      <Container maxWidth="lg">
-        <Typography variant="body2" color="text.secondary" align="center">
-          {'© '}
-          {currentYear}
-          {' Murang\'a County Government. '}
-          {'All rights reserved. '}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
-          {'This platform ensures anonymous feedback submission. '}
-          {'Your privacy is our priority.'}
-        </Typography>
-      </Container>
+      <Typography variant="body2">
+        © {new Date().getFullYear()} Murang'a County Government. All rights reserved.
+      </Typography>
+      <Typography variant="caption" display="block">
+        This platform ensures anonymous feedback submission. Your privacy is our priority.
+      </Typography>
     </Box>
   );
-};
-
-export default Footer;
+}

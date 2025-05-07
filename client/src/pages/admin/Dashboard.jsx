@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Container, Typography, CircularProgress, Alert, Grid, Paper } from '@mui/material';
+import { Box, Container, Typography, CircularProgress, Alert, Grid, Paper, Tooltip } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState(null);
@@ -46,34 +47,54 @@ export default function AdminDashboard() {
         {!loading && !error && stats && (
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper sx={{ p: 2, textAlign: 'center', cursor: 'pointer' }} onClick={() => handleCardClick('all', 'all')}>
-                <Typography variant="h6">Total Feedback</Typography>
-                <Typography variant="h4">{stats.totalCount}</Typography>
-              </Paper>
+              <Tooltip title="Total number of feedback submissions received." arrow>
+                <Paper sx={{ p: 2, textAlign: 'center', cursor: 'pointer', bgcolor: 'primary.main', color: 'primary.contrastText', boxShadow: 4, '&:hover': { bgcolor: 'primary.dark' } }} onClick={() => handleCardClick('all', 'all')}>
+                  <Typography variant="h6" sx={{ color: 'secondary.main', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+                    Total Feedback <InfoOutlinedIcon fontSize="small" />
+                  </Typography>
+                  <Typography variant="h4">{stats.totalCount}</Typography>
+                </Paper>
+              </Tooltip>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper sx={{ p: 2, textAlign: 'center', cursor: 'pointer' }} onClick={() => handleCardClick('category', 'complaint')}>
-                <Typography variant="h6">Complaints</Typography>
-                <Typography variant="h4">{stats.categoryStats?.find(c => c.category === 'complaint')?.count || 0}</Typography>
-              </Paper>
+              <Tooltip title="Number of complaints submitted." arrow>
+                <Paper sx={{ p: 2, textAlign: 'center', cursor: 'pointer', bgcolor: 'secondary.main', color: 'secondary.contrastText', boxShadow: 4, '&:hover': { bgcolor: 'secondary.dark', color: 'secondary.contrastText' } }} onClick={() => handleCardClick('category', 'complaint')}>
+                  <Typography variant="h6" sx={{ color: 'primary.dark', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+                    Complaints <InfoOutlinedIcon fontSize="small" />
+                  </Typography>
+                  <Typography variant="h4">{stats.categoryStats?.find(c => c.category === 'complaint')?.count || 0}</Typography>
+                </Paper>
+              </Tooltip>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper sx={{ p: 2, textAlign: 'center', cursor: 'pointer' }} onClick={() => handleCardClick('category', 'compliment')}>
-                <Typography variant="h6">Compliments</Typography>
-                <Typography variant="h4">{stats.categoryStats?.find(c => c.category === 'compliment')?.count || 0}</Typography>
-              </Paper>
+              <Tooltip title="Number of compliments submitted." arrow>
+                <Paper sx={{ p: 2, textAlign: 'center', cursor: 'pointer', bgcolor: 'primary.light', color: 'primary.contrastText', boxShadow: 4, '&:hover': { bgcolor: 'primary.main' } }} onClick={() => handleCardClick('category', 'compliment')}>
+                  <Typography variant="h6" sx={{ color: 'secondary.dark', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+                    Compliments <InfoOutlinedIcon fontSize="small" />
+                  </Typography>
+                  <Typography variant="h4">{stats.categoryStats?.find(c => c.category === 'compliment')?.count || 0}</Typography>
+                </Paper>
+              </Tooltip>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper sx={{ p: 2, textAlign: 'center', cursor: 'pointer' }} onClick={() => handleCardClick('category', 'suggestion')}>
-                <Typography variant="h6">Suggestions</Typography>
-                <Typography variant="h4">{stats.categoryStats?.find(c => c.category === 'suggestion')?.count || 0}</Typography>
-              </Paper>
+              <Tooltip title="Number of suggestions submitted." arrow>
+                <Paper sx={{ p: 2, textAlign: 'center', cursor: 'pointer', bgcolor: 'secondary.light', color: 'secondary.contrastText', boxShadow: 4, '&:hover': { bgcolor: 'secondary.main', color: 'secondary.contrastText' } }} onClick={() => handleCardClick('category', 'suggestion')}>
+                  <Typography variant="h6" sx={{ color: 'primary.dark', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+                    Suggestions <InfoOutlinedIcon fontSize="small" />
+                  </Typography>
+                  <Typography variant="h4">{stats.categoryStats?.find(c => c.category === 'suggestion')?.count || 0}</Typography>
+                </Paper>
+              </Tooltip>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper sx={{ p: 2, textAlign: 'center', cursor: 'pointer' }} onClick={() => handleCardClick('status', 'resolved')}>
-                <Typography variant="h6">Resolved</Typography>
-                <Typography variant="h4">{stats.statusStats?.find(s => s.status === 'resolved')?.count || 0}</Typography>
-              </Paper>
+              <Tooltip title="Number of feedback marked as resolved." arrow>
+                <Paper sx={{ p: 2, textAlign: 'center', cursor: 'pointer', bgcolor: 'primary.dark', color: 'primary.contrastText', boxShadow: 4, '&:hover': { bgcolor: 'primary.main' } }} onClick={() => handleCardClick('status', 'resolved')}>
+                  <Typography variant="h6" sx={{ color: 'secondary.main', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+                    Resolved <InfoOutlinedIcon fontSize="small" />
+                  </Typography>
+                  <Typography variant="h4">{stats.statusStats?.find(s => s.status === 'resolved')?.count || 0}</Typography>
+                </Paper>
+              </Tooltip>
             </Grid>
           </Grid>
         )}
