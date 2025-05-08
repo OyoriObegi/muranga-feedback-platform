@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Box, Container } from '@mui/material';
+import { Box, Container, useTheme, useMediaQuery } from '@mui/material';
 
 // Layout components
 import Navbar from './components/layout/Navbar';
@@ -28,11 +28,31 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <AuthProvider>
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          minHeight: '100vh',
+          overflow: 'hidden'
+        }}
+      >
         <Navbar />
-        <Container component="main" sx={{ flex: 1, py: 4 }}>
+        <Container 
+          component="main" 
+          sx={{ 
+            flex: 1,
+            py: { xs: 2, sm: 3, md: 4 },
+            px: { xs: 2, sm: 3, md: 4 },
+            maxWidth: '100% !important',
+            width: '100%',
+            overflow: 'auto'
+          }}
+        >
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<Home />} />

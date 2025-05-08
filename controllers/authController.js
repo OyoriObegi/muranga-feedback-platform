@@ -20,12 +20,9 @@ export const registerAdmin = async (req, res) => {
       return res.status(400).json({ message: 'Admin with this email already exists' });
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
     const admin = await Admin.create({
       email,
-      password: hashedPassword,
+      password,
       role: role || 'admin'
     });
 
