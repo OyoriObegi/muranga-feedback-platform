@@ -139,6 +139,7 @@ export default function FeedbackManagement() {
       setSelectedFeedback((prev) => ({ ...prev, status: newStatus }));
       setSnackbarMsg('Status updated successfully!');
       setSnackbarOpen(true);
+      handleCloseModal();
     } catch (err) {
       setSnackbarMsg('Failed to update status');
       setSnackbarOpen(true);
