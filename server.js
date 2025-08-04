@@ -13,9 +13,9 @@ const app = express();
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://muranga-feedback-frontend.onrender.com', 'http://localhost:3000']
+    ? ['https://your-frontend-app-name.onrender.com', 'http://localhost:3000']
     : 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
