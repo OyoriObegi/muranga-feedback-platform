@@ -18,7 +18,7 @@ import {
   Alert,
   Snackbar
 } from '@mui/material';
-import axios from 'axios';
+import api from '../config/api.js';
 
 const SubmitFeedback = () => {
   const [formData, setFormData] = useState({
@@ -44,7 +44,7 @@ const SubmitFeedback = () => {
     setError('');
 
     try {
-      const response = await axios.post('/api/feedback', formData);
+      const response = await api.post('/feedback', formData);
       setTrackingId(response.data.trackingId);
       setSuccess(true);
       setFormData({ category: '', message: '' });

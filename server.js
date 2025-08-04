@@ -2,17 +2,25 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import sequelize from './config/database.js';
 
 // Load environment variables
 dotenv.config();
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Create Express app
 const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://your-frontend-app-name.onrender.com', 'http://localhost:3000']
+    : 'http://localhost:3000',
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -24,6 +32,11 @@ app.use((req, res, next) => {
   res.removeHeader('X-Powered-By');
   next();
 });
+
+// Serve static files from the React app build directory
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/dist')));
+}
 
 // Basic route
 app.get('/api/health', (req, res) => {
@@ -43,6 +56,13 @@ app.get('/', (req, res) => {
     version: '1.0.0'
   });
 });
+
+// Catch all handler: send back React's index.html file for any non-API routes
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+  });
+}
 
 // Connect to PostgreSQL
 sequelize.authenticate()

@@ -8,7 +8,9 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "build": "npm run build --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "render-postbuild": "npm run build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
